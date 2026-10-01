@@ -61,7 +61,7 @@ P-SGCL/
 
 ## Data and quick start
 
-The supplied datasets are under `dataset/`. Central models support `brca`, `brca-v5`, `gbm`, and `lgg`. MOGONET and MCGNN support `BRCA` (four labels), `BRCA-v5` (five labels), `GBM`, and `LGG`.
+The supplied datasets are under `dataset/`. P-SGCL is the primary model and supports `brca`, `brca-v5`, `gbm`, and `lgg`. MOGONET and MCGNN are baselines; they support `BRCA` (four labels), `BRCA-v5` (five labels), `GBM`, and `LGG`.
 
 Validate the LGG inputs before training:
 
