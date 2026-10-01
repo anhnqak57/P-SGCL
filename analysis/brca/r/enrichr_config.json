@@ -1,0 +1,23 @@
+{
+  "organism": "human",
+  "libraries": [
+    "KEGG_2021_Human",
+    "GO_Biological_Process_2023",
+    "GO_Cellular_Component_2023",
+    "GO_Molecular_Function_2023"
+  ],
+  "adjusted_p_value_threshold": 0.05,
+  "strict_adjusted_p_value_comparison": true,
+  "bar_top_terms": {
+    "KEGG_2021_Human": 15,
+    "GO_Biological_Process_2023": 10,
+    "GO_Cellular_Component_2023": 10,
+    "GO_Molecular_Function_2023": 10
+  },
+  "dot_top_terms": {
+    "KEGG_2021_Human": 10,
+    "GO_Biological_Process_2023": 10,
+    "GO_Cellular_Component_2023": 10,
+    "GO_Molecular_Function_2023": 10
+  }
+}

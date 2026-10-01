@@ -1,0 +1,6 @@
+# Optional Python packages for BRCA selection, retained Python enrichment, and plots.
+# R Enrichr packages are declared in analysis/brca/r/requirements.R.
+-r requirements.txt
+matplotlib==3.10.9
+Pillow==12.2.0
+gseapy==1.2.1

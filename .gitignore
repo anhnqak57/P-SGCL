@@ -1,0 +1,51 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.so
+
+# Test, coverage, and editor state
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+.idea/
+*.swp
+
+# Generated experiment and analysis outputs
+outputs/
+results/
+verification_outputs/
+key_genes/
+generated_graphs/
+*.pt
+*.pth
+*.pkl
+*.log
+# Retired code and prior-result archive
+archive/
+
+# One-time migration integrity records; not required to execute a run.
+dataset/MAT_SHA256SUMS.tsv
+tools/verify_mat_checksums.py
+
+# Graph matrix artifacts are not read by runners; tracked edge CSVs are sufficient.
+dataset/**/graphs/**/*.mat
+
+# Inactive legacy LGG feature export
+dataset/lgg/features/
+
+# R session and user-library files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# OS files
+.DS_Store
+Thumbs.db

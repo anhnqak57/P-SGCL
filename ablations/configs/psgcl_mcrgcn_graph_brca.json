@@ -1,0 +1,18 @@
+{
+  "model": "psgcl-mcrgcn-graph",
+  "dataset": "brca",
+  "data_dir": "dataset",
+  "output_dir": "outputs",
+  "folds": 10,
+  "seeds": [223, 777, 2026],
+  "epochs": 100,
+  "lr": 0.001,
+  "weight_decay": 0.0005,
+  "hidden_dim": 256,
+  "embedding_dim": 128,
+  "dropout": 0.3,
+  "graph_order": 2,
+  "tau": 0.5,
+  "classifier_max_iter": 2000,
+  "classifier_alpha": 0.001
+}

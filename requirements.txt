@@ -1,0 +1,8 @@
+# Verified in the supplied Python 3.11.7 environment on 2026-09-24.
+# Install a compatible CPU or CUDA PyTorch build first; README.md gives examples.
+numpy==2.4.4
+scipy==1.17.1
+pandas==3.0.2
+scikit-learn==1.8.0
+torch==2.5.1
+torch-geometric==2.7.0
