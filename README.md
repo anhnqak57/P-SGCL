@@ -6,19 +6,43 @@ P-SGCL performs cancer-subtype classification from gene expression, DNA methylat
 
 ## Setup
 
-From the directory that contains the cloned `P-SGCL` repository:
+P-SGCL is verified with Python 3.11. Install a CPU or CUDA build of PyTorch
+that matches your system before installing the remaining dependencies.
+
+Clone the repository into a directory named `P-SGCL`:
 
 ```bash
-git -C P-SGCL pull --ff-only
+git clone https://github.com/anhnqak57/P-SGCL.git P-SGCL
 cd P-SGCL
+```
+
+Create and activate a virtual environment.
+
+macOS/Linux:
+
+```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
+```
+
+Windows PowerShell:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Then install the dependencies:
+
+```bash
 python -m pip install --upgrade pip
 python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -r requirements.txt
 ```
 
-For CUDA, install a PyTorch build compatible with the target CUDA runtime before installing `requirements.txt`.
+For CUDA, replace the CPU PyTorch installation command with the command from
+[PyTorch's installation selector](https://pytorch.org/get-started/locally/).
+To update an existing checkout, run `git pull --ff-only` from `P-SGCL/`.
 
 ## Repository structure
 
@@ -153,6 +177,9 @@ python build_graphs.py \
   --dataset lgg --data-dir dataset \
   --output-dir generated_graphs/lgg_adaptive_percentile
 ```
+
+`--output-dir` must be a new directory; preprocessing never overwrites supplied
+percentile graphs.
 
 Show the central CLI options:
 
