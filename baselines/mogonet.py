@@ -25,6 +25,10 @@ BASE_DIR = Path(__file__).parent.resolve()
 logging.basicConfig(level=logging.INFO, format='%(levelname)s - %(message)s')
 
 
+def mat_dataset_name(dataset: str) -> str:
+    return "BRCA" if dataset == "BRCA-v5" else dataset
+
+
 def xavier_init(m):
     if type(m) == nn.Linear:
         nn.init.xavier_normal_(m.weight)
@@ -574,7 +578,7 @@ SEEDS = [223, 777, 2026]
 
 def parse_args():
     parser = argparse.ArgumentParser(description="MOGONET baseline with the original two-stage training protocol.")
-    parser.add_argument("--dataset", default="LGG", choices=["BRCA", "GBM", "LGG"])
+    parser.add_argument("--dataset", default="LGG", choices=["BRCA", "BRCA-v5", "GBM", "LGG"])
     parser.add_argument("--data-path", default=None, help="Explicit MAT file; overrides --data-dir.")
     parser.add_argument("--data-dir", default="dataset", help="Canonical dataset root, or project root containing dataset/.")
     parser.add_argument("--output-dir", default="outputs/mogonet")
@@ -598,7 +602,7 @@ def evaluate_checkpoint(checkpoint_path, data_path, dataset):
     if not checkpoint_path.is_file():
         raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}.")
     payload = torch.load(checkpoint_path, map_location="cuda" if cuda else "cpu", weights_only=False)
-    features1, features2, features3, labels, _ = load_data(data_path, data_type=dataset)
+    features1, features2, features3, labels, _ = load_data(data_path, data_type=mat_dataset_name(dataset))
     feature_list = [features1, features2, features3]
     tr_idx = np.asarray(payload["train_indices"], dtype=np.int64)
     te_idx = np.asarray(payload["test_indices"], dtype=np.int64)
@@ -645,7 +649,9 @@ def main():
         raise FileExistsError(f"{log_dir} already exists; prior outputs are not overwritten.")
     log_dir.mkdir(parents=True)
     (log_dir / "config.json").write_text(json.dumps(vars(args), indent=2), encoding="utf-8")
-    features1, features2, features3, labels, indexes = load_data(data_path, data_type=args.dataset)
+    features1, features2, features3, labels, indexes = load_data(
+        data_path, data_type=mat_dataset_name(args.dataset)
+    )
     num_class = len(np.unique(labels))
     feature_list = [features1, features2, features3]
     dim_he_list = [200, 200, 100]

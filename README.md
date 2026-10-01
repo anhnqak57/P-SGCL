@@ -61,7 +61,7 @@ P-SGCL/
 
 ## Data and quick start
 
-The supplied datasets are under `dataset/`. Central models support `brca`, `brca-v5`, `gbm`, and `lgg`; MOGONET and MCGNN support `BRCA`, `GBM`, and `LGG`.
+The supplied datasets are under `dataset/`. Central models support `brca`, `brca-v5`, `gbm`, and `lgg`. MOGONET and MCGNN support `BRCA` (four labels), `BRCA-v5` (five labels), `GBM`, and `LGG`.
 
 Validate the LGG inputs before training:
 
@@ -114,6 +114,9 @@ python -m baselines.mogonet \
   --output-dir outputs/mogonet --run-name mogonet_lgg_full
 ```
 
+Use `--dataset BRCA` for the four-label BRCA dataset or `--dataset BRCA-v5`
+for the five-label BRCA dataset.
+
 #### MCGNN
 
 ```bash
@@ -121,6 +124,9 @@ python -m baselines.mcgnn \
   --dataset LGG --data-dir dataset \
   --output-dir outputs/mcgnn --run-name mcgnn_lgg_full
 ```
+
+Use `--dataset BRCA` for the four-label BRCA dataset or `--dataset BRCA-v5`
+for the five-label BRCA dataset.
 
 ### Ablations
 

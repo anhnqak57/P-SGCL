@@ -29,6 +29,11 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+
+def mat_dataset_name(dataset: str) -> str:
+    return "BRCA" if dataset == "BRCA-v5" else dataset
+
+
 def relabel(labels: np.ndarray):
     uniq = np.unique(labels)
     mapping = {u: i for i, u in enumerate(uniq)}
@@ -552,7 +557,7 @@ def evaluate_checkpoint(checkpoint_path, data_path, dataset, device=None):
         raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}.")
     device = device or get_device()
     payload = torch.load(checkpoint_path, map_location=device, weights_only=False)
-    gene, methylation, mirna, labels, _ = load_data(data_path, dataset)
+    gene, methylation, mirna, labels, _ = load_data(data_path, mat_dataset_name(dataset))
     y, _ = relabel(labels)
     views = build_view_list(gene, methylation, mirna)
     tr_idx = np.asarray(payload["train_indices"], dtype=np.int64)
@@ -609,7 +614,10 @@ def parse_args():
     p = argparse.ArgumentParser(description="MCgnn: Multiview-Cooperated Graph Neural Network")
     p.add_argument("--data-path", "--data_path", dest="data_path", type=str, default=None)
     p.add_argument("--data-dir", default="dataset", help="Canonical dataset root, or project root containing dataset/.")
-    p.add_argument("--dataset", "--type", dest="dataset", type=str, default="BRCA", choices=["BRCA", "GBM", "LGG"])
+    p.add_argument(
+        "--dataset", "--type", dest="dataset", type=str, default="BRCA",
+        choices=["BRCA", "BRCA-v5", "GBM", "LGG"],
+    )
     p.add_argument("--k", type=float, default=10, help="density-threshold scaling hyperparameter")
     p.add_argument("--folds", type=int, default=10, help="StratifiedKFold splits per seed")
     p.add_argument("--seeds", type=int, nargs="+", default=[223, 777, 2026])
@@ -653,7 +661,9 @@ def main():
     if args.checkpoint is not None:
         print(json.dumps(evaluate_checkpoint(args.checkpoint, args.data_path, args.dataset, device), indent=2, default=float))
         return
-    gene, methylation, mirna, labels, indexes = load_data(args.data_path, args.dataset)
+    gene, methylation, mirna, labels, indexes = load_data(
+        args.data_path, mat_dataset_name(args.dataset)
+    )
     y, label_map = relabel(labels)
     logging.info("Label mapping: %s", label_map)
     logging.info("Number of classes: %d", len(label_map))
