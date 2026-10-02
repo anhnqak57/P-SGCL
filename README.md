@@ -12,7 +12,7 @@ The code has been verified with Python 3.11. Run the following commands in Bash
 on Linux, macOS, or Windows with WSL:
 
 ```bash
-git clone https://github.com/anhnqak57/P-SGCL.git P-SGCL
+git clone https://github.com/anhnqak57/P-SGCL.git
 cd P-SGCL
 
 python3.11 -m venv .venv
